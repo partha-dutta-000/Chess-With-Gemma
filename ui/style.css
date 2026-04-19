@@ -1,0 +1,247 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent: #8b5cf6;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent body scroll */
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-width: 1200px;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.top-row {
+    flex: 0 0 45%;
+    display: flex;
+    gap: 1.5rem;
+    min-height: 0; /* Crucial for flex child shrinking */
+}
+
+.bottom-row {
+    flex: 1 1 50%;
+    display: flex;
+    min-height: 0; /* Crucial for flex child shrinking */
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.board-section {
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.debug-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 0;
+}
+
+.metrics {
+    flex: 0 0 auto; /* Don't grow timers */
+}
+
+.debug-panel {
+    flex: 1; /* Grow debug panel */
+}
+
+.log-panel {
+    flex: 1;
+    width: 100%;
+}
+
+.title {
+    margin-top: 0;
+    font-weight: 600;
+    background: linear-gradient(to right, #a78bfa, #2dd4bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    flex-shrink: 0;
+}
+
+.status-bar {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--accent);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.metrics h3, .log-panel h3, .debug-panel h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.metrics-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #334155;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.slider.round {
+  border-radius: 22px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.timer-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.agent-log {
+    flex: 1; /* Takes remaining height */
+    overflow-y: auto; /* Adds scrollbar */
+    min-height: 0; /* Prevents overflow */
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    font-family: Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    box-sizing: border-box;
+}
+
+.debug-log {
+    color: #4ade80;
+    font-size: 0.85rem;
+}
+
+.stream-container {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.5rem;
+}
+
+.stream-text {
+    display: inline;
+}
+
+.system-msg {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.spinner {
+    color: var(--accent);
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}

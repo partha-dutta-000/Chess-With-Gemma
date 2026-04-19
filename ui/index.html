@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemma Chess</title>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Section (45% height) -->
+        <div class="top-row">
+            <!-- The Board -->
+            <div class="board-section glass-panel">
+                <h2 class="title" style="margin-bottom: 0.5rem; font-size: 1.2rem;">You vs Gemma 3</h2>
+                <div id="board" style="width: 320px"></div>
+                <div class="status-bar" style="display: flex; justify-content: space-between; width: 320px; align-items: center;">
+                    <span id="game-status">Your turn (White)</span>
+                    <button id="download-pgn-btn" class="btn">Download PGN</button>
+                </div>
+            </div>
+
+            <!-- Timers and Debug Panel -->
+            <div class="debug-section">
+                <div class="glass-panel metrics">
+                    <div class="metrics-header">
+                        <h3>Decision Timers</h3>
+                        <label class="switch-container">
+                            <span style="margin-right: 10px; font-size: 0.9rem; color: var(--text-secondary);">Developer Mode</span>
+                            <div class="switch">
+                                <input type="checkbox" id="dev-mode-toggle">
+                                <span class="slider round"></span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="timer-row">
+                        <span>You: <span id="human-time">0.0s</span></span>
+                        <span>Gemma: <span id="llm-time">0.0s</span></span>
+                    </div>
+                </div>
+
+                <div id="debug-panel" class="glass-panel debug-panel hidden">
+                    <h3>Debug Console: Sent Prompt</h3>
+                    <div id="debug-log" class="agent-log debug-log">
+                        <p class="system-msg">No prompt generated yet...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section (55% height) -->
+        <div class="bottom-row">
+            <div class="glass-panel log-panel">
+                <h3 style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-shrink: 0;">
+                    Gemma's Reasoning Output
+                    <span id="loading-spinner" class="spinner hidden" style="margin: 0; font-size: 0.9rem;">Listening to Stream...</span>
+                </h3>
+                <div id="agent-log" class="agent-log">
+                    <p class="system-msg">Awaiting Gemma's analysis...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
